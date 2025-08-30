@@ -30,7 +30,7 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     # Debes lanzar SystemExit si la solicitud falla. Investiga el método raise_for_status
     # de la biblioteca requests.
 
-    url = f"{public_holydays_url}/{year}/BR"
+    url = f"{public_holidays_url}/{year}/BR"
     try:
         response = requests.get(url, timeout=10)
 
@@ -43,7 +43,7 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     # respose.json() devuelve una lista de diccionarios
 
     data = response.json()
-    df = Dataframe(data)
+    df = DataFrame(data)
     
     #Eliminamos columnas no deseadas si existen 
     
