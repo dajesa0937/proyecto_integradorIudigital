@@ -3,12 +3,14 @@ from typing import Dict
 import requests
 from pandas import DataFrame, read_csv, read_json, to_datetime
 
+
 def temp() -> DataFrame:
     """Get the temperature data.
     Returns:
         DataFrame: A dataframe with the temperature data.
     """
     return read_csv("data/temperature.csv")
+
 
 def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
     """Get the public holidays for the given year for Brazil.
@@ -30,20 +32,19 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
 
     url = f"{public_holydays_url}/{year}/BR"
     try:
-        response = requests.get(url, timeout=)
-        
+        response = requests.get(url, timeout=10)
+
         # Si la respuesta HTTP no es 200 (OK) raise_for_status lanzará un error
         response.raise_for_status()
     except requests.RequestException as exc:
-        
-        # Convertimos cualquier error de requests en un SystemExit 
+
+        # Convertimos cualquier error de requests en un SystemExit
         raise SystemExit(f"Error fetching public holidays: {exc}")
     # respose.json() devuelve una lista de diccionarios
-    
+
     data = response.json()
-    df = Dataframe(data) 
-    
-       
+    df = Dataframe(data)
+
 
 def extract(
     csv_folder: str, csv_table_mapping: Dict[str, str], public_holidays_url: str
