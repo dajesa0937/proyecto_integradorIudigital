@@ -44,6 +44,19 @@ def get_public_holidays(public_holidays_url: str, year: str) -> DataFrame:
 
     data = response.json()
     df = Dataframe(data)
+    
+    #Eliminamos columnas no deseadas si existen 
+    
+    df= df.drop(columns=["types", "counties"], errors='ignore')
+    
+    # Convertimos la columna date a datetime
+    
+    if "date" in df.columns:
+        df["date"] = to_datetime(df["date"], errors='coerce')
+        
+    return df
+    
+    
 
 
 def extract(
